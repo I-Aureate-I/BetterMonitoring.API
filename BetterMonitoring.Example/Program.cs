@@ -8,7 +8,7 @@ namespace BetterMonitoring.Example
     {
         static void Main(string[] args)
         {
-            API.BetterMonitoringClient client = new API.BetterMonitoringClient("IbolpFGn4QzokJmhWkAJbEFM6IWvMSYKW64hEc9Aqz2Qz91eDq2Dp4qlNDbfgXPaFjYGwMeuLG7O9QkH3CKs7moXbF7xjDhkpc1EUcWIUsHHAmACiTeS9YpdtuHfk8nk");
+            API.BetterMonitoringClient client = new API.BetterMonitoringClient(your token);
 
             System.Net.WebHeaderCollection header = new System.Net.WebHeaderCollection
             {
