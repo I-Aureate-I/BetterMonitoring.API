@@ -1,4 +1,3 @@
-<img src="https://cdn.discordapp.com/attachments/954041260090470430/956979173488992286/logo.png" align="right" />
 <p>
    <a href="https://github.com/I-Aureate-I/BetterMonitoring.API/releases/latest">
      <img src="https://img.shields.io/github/downloads/I-Aureate-I/BetterMonitoring.API/total.svg" />
