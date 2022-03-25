@@ -10,9 +10,9 @@ namespace BetterMonitoring.API
     public class Bot
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BetterMonitoringClient"/> class.
+        /// Initializes a new instance of the <see cref="Client"/> class.
         /// </summary>
-        protected Bot(string userName, string prefix, string avatar, string id, string votes, string verified, string git, string web, string support, string owner, string shortDesc, string longDesc, string tags, string coowners)
+        protected Bot(string userName, string prefix, string avatar, string id, string votes, string verified, string git, string web, string support, string ownerId, string shortDesc, string longDesc, string owner, string tags, string coowners)
         {
             UserName = userName;
             Prefix = prefix;
@@ -23,9 +23,10 @@ namespace BetterMonitoring.API
             Github = string.IsNullOrEmpty(git) ? "None" : git == "\"," ? "None" : git;
             WebSite = string.IsNullOrEmpty(web) ? "None" : web == "\"," ? "None" : web;
             Support = string.IsNullOrEmpty(support) ? "None" : support == "\"," ? "None" : support;
-            OwnerId = long.Parse(owner);
+            OwnerId = long.Parse(ownerId);
             ShortDesc = shortDesc;
             LongDesc = longDesc;
+            Owner = owner;
             Tags = tags.Replace("\"", string.Empty).Split(',');
             CoownersIds = coowners.Replace("\"", string.Empty).Split(',').Select(x => long.Parse(x)).ToArray();
         }
@@ -76,6 +77,11 @@ namespace BetterMonitoring.API
         public long Id { get; }
 
         /// <summary>
+        /// Gets a bot owner name.
+        /// </summary>
+        public string Owner { get; }
+
+        /// <summary>
         /// Gets a bot owner id.
         /// </summary>
         public long OwnerId { get; }
@@ -119,8 +125,7 @@ namespace BetterMonitoring.API
         {
             try
             {
-                return 
-                    new Bot(
+                return new Bot(
                         GetValue(data, "username") + "#" + GetValue(data, "discrim"),
                         GetValue(data, "prefix"),
                         GetValue(data, "avatar"),
@@ -133,12 +138,13 @@ namespace BetterMonitoring.API
                         GetValue(data, "ownerID"),
                         GetValue(data, "shortDesc"),
                         GetValue(data, "longDesc"),
+                        GetValue(data, "owner"),
                         GetValues(data, "tags"),
                         GetValues(data, "coowners"));
             }
             catch (Exception error)
             {
-                Console.WriteLine(string.Format("[{0:MM/dd/yy H:mm:ss}] [{1}] [ERROR] {2}\n{3}", DateTime.Now.ToLocalTime().ToString(), nameof(BetterMonitoringClient.GetBot), error.ToString(), error.StackTrace.ToString()));
+                Console.WriteLine(string.Format("[{0:MM/dd/yy H:mm:ss}] [{1}] [ERROR] {2}\n{3}", DateTime.Now.ToLocalTime().ToString(), nameof(Client.GetBot), error.ToString(), error.StackTrace.ToString()));
             }
 
             return null;
