@@ -1,6 +1,6 @@
 <p>
-   <a href="https://discord.gg/5jqHuS3Fkh" alt="Discord">
-      <img src="https://discord.com/api/guilds/951837171361407066/embed.png" alt="Discord"/>
+   <a href="https://discord.gg/5jqHuS3Fkh">
+      <img src="https://discord.com/api/guilds/951837171361407066/embed.png" />
    </a>
    <a href="https://github.com/I-Aureate-I/BetterMonitoring.API/releases/latest">
      <img src="https://img.shields.io/github/downloads/I-Aureate-I/BetterMonitoring.API/total.svg" />
