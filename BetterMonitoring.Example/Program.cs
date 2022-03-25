@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BetterMonitoring.API;
 
 namespace BetterMonitoring.Example
 {
@@ -8,7 +9,7 @@ namespace BetterMonitoring.Example
     {
         static void Main(string[] args)
         {
-            API.BetterMonitoringClient client = new API.BetterMonitoringClient(your token);
+            Client client = new Client("your token");
 
             System.Net.WebHeaderCollection header = new System.Net.WebHeaderCollection
             {
