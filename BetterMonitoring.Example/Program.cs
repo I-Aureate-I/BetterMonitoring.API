@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Security.Policy;
 using BetterMonitoring.API;
 
 namespace BetterMonitoring.Example
@@ -11,12 +14,14 @@ namespace BetterMonitoring.Example
         {
             Client client = new Client("your token");
 
-            System.Net.WebHeaderCollection header = new System.Net.WebHeaderCollection
+            Console.WriteLine(client.CheckVote("950866731562311740"));
+
+            WebHeaderCollection header = new WebHeaderCollection
             {
                 { "serverCount", "228" },
                 { "shardCount", "1337" }
             };
-            client.Refresh(header);
+            Console.WriteLine(client.Refresh(header));
 
             Console.WriteLine("Successfully refreshed!");
 
