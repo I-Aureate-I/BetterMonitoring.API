@@ -14,7 +14,7 @@ namespace BetterMonitoring.Example
         {
             Client client = new Client("your token");
 
-            Console.WriteLine(client.CheckVote("950866731562311740"));
+            Console.WriteLine(client.CheckVote(893736084725432351));
 
             WebHeaderCollection header = new WebHeaderCollection
             {
@@ -25,7 +25,7 @@ namespace BetterMonitoring.Example
 
             Console.WriteLine("Successfully refreshed!");
 
-            var bot = client.GetBot(952261877478608906);
+            var bot = client.GetBot(893736084725432351);
 
             foreach (var property in bot.GetType().GetProperties())
             {
@@ -35,7 +35,7 @@ namespace BetterMonitoring.Example
 
                     continue;
                 }
-                else if (property.Name == "CoownersIds")
+                else if (property.Name == "CoownersIds" )
                 {
                     Console.WriteLine(string.Format("{0}: {1}", property.Name, string.Join(",", (property.GetValue(bot) as IEnumerable<long>).Select(x => x.ToString()))));
 
@@ -43,6 +43,13 @@ namespace BetterMonitoring.Example
                 }
 
                 Console.WriteLine(string.Format("{0}: {1}", property.Name, property.GetValue(bot)));
+            }
+
+            var user = client.GetUser(950866731562311740);
+
+            foreach (var property in user.GetType().GetProperties())
+            {
+                Console.WriteLine(string.Format("{0}: {1}", property.Name, property.GetValue(user)));
             }
 
             Console.ReadLine();
