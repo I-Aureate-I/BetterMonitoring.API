@@ -28,7 +28,13 @@ namespace BetterMonitoring.API
             LongDesc = longDesc;
             Owner = owner;
             Tags = tags.Replace("\"", string.Empty).Split(',');
-            CoownersIds = coowners.Replace("\"", string.Empty).Split(',').Select(x => long.Parse(x)).ToArray();
+
+            if (coowners != "\"\"" && !coowners.Contains("]"))
+            {
+                CoownersIds = coowners.Replace("\"", string.Empty).Split(',').Select(x => long.Parse(x)).ToArray();
+            }
+            else
+                CoownersIds = new long[0];
         }
 
         /// <summary>
