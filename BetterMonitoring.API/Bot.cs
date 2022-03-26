@@ -10,7 +10,7 @@ namespace BetterMonitoring.API
     public class Bot
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Client"/> class.
+        /// Initializes a new instance of the <see cref="Bot"/> class.
         /// </summary>
         protected Bot(string userName, string prefix, string avatar, string id, string votes, string verified, string git, string web, string support, string ownerId, string shortDesc, string longDesc, string owner, string tags, string coowners)
         {

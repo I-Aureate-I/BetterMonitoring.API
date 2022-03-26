@@ -118,7 +118,7 @@ namespace BetterMonitoring.API
         /// </summary>
         /// <param name="userId">A user id.</param>
         /// <returns>Value which indicating voted user for bot or not.</returns>
-        public bool CheckVote(string userId)
+        public bool CheckVote(long userId)
         {
             try
             {
@@ -152,6 +152,13 @@ namespace BetterMonitoring.API
         /// <param name="botId">A id of bot.</param>
         /// <returns><see cref="Bot"/> which id equal to <paramref name="botId"/>.</returns>
         public Bot GetBot(long botId) => Bot.Get(Request(string.Format("{0}/bots/{1}", API_URL, botId)));
+
+        /// <summary>
+        /// Gets a <see cref="User"/> by <paramref name="userId"/>.
+        /// </summary>
+        /// <param name="userId">A id of <see cref="User"/>.</param>
+        /// <returns><see cref="User"/> which id equal to <paramref name="userId"/>.</returns>
+        public User GetUser(long userId) => User.Get(Request(string.Format("{0}/profile/{1}", API_URL, userId)));
 
         /// <summary>
         /// Refresh bot stats.
