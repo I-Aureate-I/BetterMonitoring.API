@@ -20,7 +20,7 @@ namespace BetterMonitoring.API
         /// </summary>
         /// <param name="url">Url for request.</param>
         /// <returns>Data of a bot.</returns>
-        public string Request(string url)
+        internal string Request(string url)
         {
             try
             {
@@ -31,9 +31,7 @@ namespace BetterMonitoring.API
 
                 using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                 {
-                    string result = reader.ReadToEnd();
-                    Console.ForegroundColor = ConsoleColor.DarkCyan;
-                    return result;
+                    return reader.ReadToEnd();
                 }
             }
             catch (Exception error)
@@ -49,13 +47,13 @@ namespace BetterMonitoring.API
         /// </summary>
         /// <param name="url">Url for request.</param>
         /// <param name="headers">Headers which contains new stats.</param>
-        /// <returns></returns>
-        public bool Request(string url, WebHeaderCollection headers)
+        /// <returns>Successfully or not.</returns>
+        internal bool Request(string url, WebHeaderCollection headers)
         {
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                request.Method = "POST";
+                request.Method = "GET";
                 headers.Add("Authorization", Token);
                 request.Headers = headers;
 
@@ -63,9 +61,7 @@ namespace BetterMonitoring.API
 
                 using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                 {
-                    string result = reader.ReadToEnd();
-                    Console.ForegroundColor = ConsoleColor.DarkCyan;
-                    return result.Split(':')[1] == "true" ? true : false;
+                    return reader.ReadToEnd().Split(':')[1] == "true";
                 }
             }
             catch (Exception error)
@@ -82,13 +78,13 @@ namespace BetterMonitoring.API
         /// </summary>
         /// <param name="url">Url for request.</param>
         /// <param name="headers">Headers which contains new stats.</param>
-        /// <returns></returns>
-        public bool Request(string url, string[] headers)
+        /// <returns>Successfully or not.</returns>
+        internal bool Request(string url, string[] headers)
         {
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                request.Method = "POST";
+                request.Method = "GET";
 
                 WebHeaderCollection header = new WebHeaderCollection
                 {
@@ -105,9 +101,40 @@ namespace BetterMonitoring.API
 
                 using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                 {
-                    string result = reader.ReadToEnd();
-                    Console.ForegroundColor = ConsoleColor.DarkCyan;
-                    return result.Split(':')[1] == "true" ? true : false;
+                    return reader.ReadToEnd().Split(':')[1] == "true";
+                }
+            }
+            catch (Exception error)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(string.Format("[{0:MM/dd/yy H:mm:ss}] [{1}] [ERROR] {2}\n{3}", DateTime.Now.ToLocalTime().ToString(), nameof(Request), error.ToString(), error.StackTrace.ToString()));
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Check user vote for bot.
+        /// </summary>
+        /// <param name="userId">A user id.</param>
+        /// <returns>Value which indicating voted user for bot or not.</returns>
+        public bool CheckVote(string userId)
+        {
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format("{0}/bots/check/{1}", API_URL, userId));
+                request.Method = "GET";
+                WebHeaderCollection headers = new WebHeaderCollection
+                {
+                    { "Authorization", Token }
+                };
+                request.Headers = headers;
+
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                {
+                    return reader.ReadToEnd().Split(':')[1].Replace("}", null) == "true";
                 }
             }
             catch (Exception error)
